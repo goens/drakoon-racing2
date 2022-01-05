@@ -1,6 +1,11 @@
 (* Data structures *)
 
-type player_t = { position : Raylib.Vector2.t; velocity : Raylib.Vector2.t; damage : int }
+type player_t = {
+  position : Raylib.Vector2.t;
+  orientation : Raylib.Vector2.t;
+  speed : float;
+  damage : int
+}
 
 type env_item_t = {
   box : Raylib.Rectangle.t;
@@ -21,6 +26,8 @@ let width = 800
 let height = 450
 
 let player_max_speed = 350.
+let player_max_reverse_speed = 150.
+let player_rotation_speed = 0.2
 let player_acceleration = 4.
 let smooth_min_speed = 30.0
 let smooth_min_length = 10.0

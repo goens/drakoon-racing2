@@ -4,7 +4,7 @@ let setup () =
   let open Raylib in
   set_config_flags [ ConfigFlags.Window_resizable ];
   init_window width height "raylib [core] example - 2d camera";
-  let player = { position = half_screen; velocity = Vector2.create 0. 0.; damage = 0 } in
+  let player = { position = half_screen; orientation = Vector2.create 0. 1.; speed = 0.; damage = 0 } in
   let env_items =
     [
       {
