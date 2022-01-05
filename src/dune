@@ -1,0 +1,4 @@
+(library
+ (name dr2lib)
+ (libraries game_data raylib)
+)
