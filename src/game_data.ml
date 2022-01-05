@@ -27,8 +27,13 @@ let height = 450
 
 let player_max_speed = 350.
 let player_max_reverse_speed = 150.
-let player_rotation_speed = 0.2
-let player_acceleration = 4.
+let player_rotation_speed = 1.0
+let player_acceleration = 6.
+
+let world_street_drag = 1.5
+
+let game_target_fps = 60
+
 let smooth_min_speed = 30.0
 let smooth_min_length = 10.0
 let smooth_fraction = 0.8

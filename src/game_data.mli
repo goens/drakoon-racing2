@@ -26,6 +26,8 @@ val player_max_speed : float
 val player_max_reverse_speed : float
 val player_rotation_speed : float
 val player_acceleration : float
+val game_target_fps : int
+val world_street_drag : float
 val smooth_min_speed : float
 val smooth_min_length : float
 val smooth_fraction : float

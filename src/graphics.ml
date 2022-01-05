@@ -1,8 +1,5 @@
 open Game_data
 
-let deg2rad d =
-  let pi = 3.14159_26535_89793_23846_2643 in
-  d *. pi /. 180.0
 
 (*let player_rec player =
   let open Raylib in
@@ -24,10 +21,10 @@ let draw_all (player, env_items, camera, mode) =
   (* Draw player *)
  (*this probably loads it every time, not a good idea*)
   let korando = load_texture "resources/korando.png" in
-  let theta = if (Vector2.x player.orientation) != 0. then
-     ((Vector2.x player.orientation) /. (Vector2.y player.orientation)) |> deg2rad |> atan
-     else 0. in
-      draw_texture_ex korando player.position theta 1.0 Color.white;
+  let width, height = float_of_int (Texture.width korando), float_of_int (Texture.height korando) in
+  let center = Vector2.add player.position (Vector2.create (-.width /. 2.) (-.height /. 2.)) in
+  let _, theta = Physics.to_polar_coords player.orientation in
+      draw_texture_ex korando center theta 1.0 Color.white;
 
 
   end_mode_2d ();
@@ -43,6 +40,8 @@ let draw_all (player, env_items, camera, mode) =
   draw_text ("Current orientation: " ^ cur_orientation_str) 20 160 10 Color.black;
   let cur_pos_str : string = (player.position |> Vector2.x |> string_of_float) ^ ", " ^ (player.position |> Vector2.y |> string_of_float) in
   draw_text ("Current position: " ^ cur_pos_str) 20 180 10 Color.black;
+  let cur_speed_str : string = (player.speed |> string_of_float) in
+  draw_text ("Current speed: " ^ cur_speed_str) 20 200 10 Color.black;
 
   end_drawing ();
   (player, env_items, camera, mode)
