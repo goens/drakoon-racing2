@@ -49,7 +49,10 @@ let open Raylib.Vector2 in
 
   (*update speed, note that forward is -1. *)
   let speed_change = -.(y input_vector) in
-  let speed_drag = max (player.speed -. world_street_drag) 0. in
+  let speed_drag = if player.speed > 0. then
+    max (player.speed -. world_street_drag) 0.
+    else min (player.speed +. world_street_drag) 0.
+   in
   let speed_updated = speed_drag +. (player_acceleration *. speed_change) in
   let speed = if speed_updated > player_max_speed
     then player_max_speed

@@ -1,7 +1,7 @@
 open Game_data
 
-
-(*let player_rec player =
+(*
+let player_rec player =
   let open Raylib in
   let x, y, w, h =
  (* hardcoded sizes, should get them from texture *)
@@ -9,7 +9,28 @@ open Game_data
   in
   Rectangle.create x y w h
 *)
-let draw_all (player, env_items, camera, mode) =
+
+type korando_textures_t = {
+ regular : Raylib.Texture.t' Raylib.ctyp;
+ smoke : Raylib.Texture.t' Raylib.ctyp;
+ fire : Raylib.Texture.t' Raylib.ctyp;
+ explosion : Raylib.Texture.t' Raylib.ctyp
+}
+
+type graphics_data_t = {
+ korando : korando_textures_t
+}
+
+let load_graphics state =
+ let open Raylib in
+ let regular = load_texture "resources/korando.png" in
+ let smoke = load_texture "resources/korando_smoke.png" in
+ let fire = load_texture "resources/korando_fire.png" in
+ let explosion = load_texture "resources/korando_explosion.png" in
+ let korando = {regular;smoke;fire;explosion} in
+ state,{korando}
+
+let draw_all textures (player, env_items, camera, mode) =
   let camera_description = Camera.camera_description in
   let open Raylib in
   begin_drawing ();
@@ -20,12 +41,17 @@ let draw_all (player, env_items, camera, mode) =
   List.iter (fun item -> draw_rectangle_rec item.box item.color) env_items;
   (* Draw player *)
  (*this probably loads it every time, not a good idea*)
-  let korando = load_texture "resources/korando.png" in
+  let korando_textures = textures.korando in
+  let korando = match player.damage with
+    | 0 -> korando_textures.regular
+    | 1 -> korando_textures.smoke
+    | 2 -> korando_textures.fire
+    |_ -> korando_textures.explosion in
   let width, height = float_of_int (Texture.width korando), float_of_int (Texture.height korando) in
-  let center = Vector2.add player.position (Vector2.create (-.width /. 2.) (-.height /. 2.)) in
+  let center = Vector2.add player.position (Vector2.create (-.width /. 2.) (-.height/.2.)) in
   let _, theta = Physics.to_polar_coords player.orientation in
       draw_texture_ex korando center theta 1.0 Color.white;
-
+  (*draw_rectangle_rec (player_rec player) Color.red;*)
 
   end_mode_2d ();
 
@@ -44,4 +70,4 @@ let draw_all (player, env_items, camera, mode) =
   draw_text ("Current speed: " ^ cur_speed_str) 20 200 10 Color.black;
 
   end_drawing ();
-  (player, env_items, camera, mode)
+  ((player, env_items, camera, mode), textures)

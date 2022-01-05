@@ -34,9 +34,9 @@ let world_street_drag = 1.5
 
 let game_target_fps = 60
 
-let smooth_min_speed = 30.0
+let smooth_min_speed = 130.0
 let smooth_min_length = 10.0
-let smooth_fraction = 0.8
+let smooth_fraction = 2.8
 let bbox_x, bbox_y = (0.2, 0.2)
 
 let half_screen =
