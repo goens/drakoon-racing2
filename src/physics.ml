@@ -44,7 +44,9 @@ let open Raylib.Vector2 in
   (*update orientation*)
   (* it should always be a unit vector *)
   let _, theta_old = to_polar_coords player.orientation in
-  let theta_new = theta_old +. (player_rotation_speed *. (x input_vector)) in
+  let theta_new = theta_old +. (player_rotation_speed *. (x input_vector)
+  (* multiply by -y beacuse: do not turn if not moving, turn reverse when reverse*)
+     *. (-1.) *. (y input_vector)) in
   let orientation = from_polar_coords (1., theta_new) in
 
   (*update speed, note that forward is -1. *)
