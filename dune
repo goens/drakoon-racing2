@@ -1,0 +1,3 @@
+(executable
+ (name DrakoonRacing2)
+ (libraries raylib))
