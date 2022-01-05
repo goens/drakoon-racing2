@@ -4,12 +4,13 @@ type player_t = {
   position : Raylib.Vector2.t;
   orientation : Raylib.Vector2.t;
   speed : float;
-  damage : int
+  damage : int;
+  invulnerability : float;
 }
 
 type env_item_t = {
   box : Raylib.Rectangle.t;
-  blocking : bool;
+  colliding : bool;
   color : Raylib.Color.t;
 }
 
@@ -27,8 +28,10 @@ let height = 450
 
 let player_max_speed = 350.
 let player_max_reverse_speed = 150.
+let player_max_damage = 3
 let player_rotation_speed = 1.0
 let player_acceleration = 6.
+let player_invulnerability_time = 3.
 
 let world_street_drag = 1.5
 

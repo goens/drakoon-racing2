@@ -4,32 +4,28 @@ let setup () =
   let open Raylib in
   set_config_flags [ ConfigFlags.Window_resizable ];
   init_window width height "raylib [core] example - 2d camera";
-  let player = { position = half_screen; orientation = Vector2.create 0. (-1.); speed = 0.; damage = 0 } in
+  let player = { position = half_screen; orientation = Vector2.create 0. (-1.);
+                 speed = 0.; damage = 0; invulnerability = 0. } in
   let env_items =
     [
-      (* { *)
-      (*   box = Rectangle.create 0.0 0.0 800.0 2500.0; *)
-      (*   blocking = false; *)
-      (*   color = Color.lightgray; *)
-      (* }; *)
       {
-        box = Rectangle.create 150. (-.1600.0) 500.0 2000.0;
-        blocking = true;
+        box = Rectangle.create 200. (-.1600.0) 500.0 2000.0;
+        colliding = false;
+        color = Color.lightgray;
+      };
+      {
+        box = Rectangle.create 400.0 (-1200.0) 40.0 40.0;
+        colliding = true;
         color = Color.gray;
       };
       {
-        box = Rectangle.create 300.0 200.0 400.0 10.0;
-        blocking = true;
+        box = Rectangle.create 400.0 (120.0) 40.0 40.0;
+        colliding = true;
         color = Color.gray;
       };
       {
-        box = Rectangle.create 250.0 300.0 100.0 10.0;
-        blocking = true;
-        color = Color.gray;
-      };
-      {
-        box = Rectangle.create 650.0 300.0 100.0 10.0;
-        blocking = true;
+        box = Rectangle.create 500.0 (-800.0) 40.0 40.0;
+        colliding = true;
         color = Color.gray;
       };
     ]

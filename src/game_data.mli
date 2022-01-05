@@ -4,12 +4,13 @@ type player_t = {
   position : Raylib.Vector2.t;
   orientation : Raylib.Vector2.t;
   speed : float;
-  damage : int
+  damage : int;
+  invulnerability : float;
 }
 
 type env_item_t = {
   box : Raylib.Rectangle.t;
-  blocking : bool;
+  colliding : bool;
   color : Raylib.Color.t;
 }
 
@@ -24,8 +25,10 @@ val width : int
 val height : int
 val player_max_speed : float
 val player_max_reverse_speed : float
+val player_max_damage : int
 val player_rotation_speed : float
 val player_acceleration : float
+val player_invulnerability_time : float
 val game_target_fps : int
 val world_street_drag : float
 val smooth_min_speed : float

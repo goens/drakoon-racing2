@@ -38,7 +38,7 @@ let from_polar_coords (r,theta_deg) =
   let y = r *. -.(cos theta) in
   Raylib.Vector2.create x y
 
-let update_player_velocity input_vector player =
+let update_player_velocity input_vector collision player =
 let open Raylib.Vector2 in
 
   (*update orientation*)
@@ -54,19 +54,36 @@ let open Raylib.Vector2 in
     else min (player.speed +. world_street_drag) 0.
    in
   let speed_updated = speed_drag +. (player_acceleration *. speed_change) in
-  let speed = if speed_updated > player_max_speed
+  let speed_collided = if collision then (-1.) *. speed_updated else speed_updated in
+  let speed = if speed_collided > player_max_speed
     then player_max_speed
     else if speed_updated < (-.player_max_reverse_speed)
     then (-.player_max_reverse_speed)
-    else speed_updated in
+    else speed_collided in
   Raylib.draw_text (Printf.sprintf "input vector: %f, %f" (x input_vector) (y input_vector)) 20 220 10 Raylib.Color.black;
   Raylib.draw_text (Printf.sprintf "theta old: %f, theta: %f" theta_old theta_new) 20 240 10 Raylib.Color.black;
   {player with speed; orientation}
 
-let update_player_position delta _ player =
+let update_player_position delta _ _ player =
 let open Raylib.Vector2 in
   let vel : t = scale player.orientation player.speed in
   let pos : t = player.position in
-  (* does not account for collisions yet*)
   let position = add pos (scale vel delta) in
   {player with position = position}
+
+let rec check_collisions player env_items collisions =
+ match env_items with
+ | [] -> (player, env_items, collisions)
+ | item::rest ->
+   let player_up, rest_up, collisions_up = check_collisions player rest collisions in
+   let collision = if item.colliding = true then
+     Raylib.check_collision_point_rec player.position item.box
+     else false
+  in
+   let player =
+     (* just add one damage instance per collision *)
+     if collisions = false && collision = true && player.invulnerability = 0.
+     then {player_up with damage = player_up.damage + 1}
+     else player_up in
+   let collisions = collisions_up || collision in
+   (player,item::rest_up, collisions)
