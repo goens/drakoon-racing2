@@ -5,7 +5,7 @@ let setup () =
   let open Raylib in
   let open Game_data in
   set_config_flags [ ConfigFlags.Window_resizable ];
-  init_window width height "Drakoon Racing 2";
+  init_window window_width window_height "Drakoon Racing 2";
   let camera = Camera2D.create half_screen (Vector2.create 0. 0.) 0.0 1.0 in
   set_target_fps game_target_fps;
   camera

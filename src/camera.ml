@@ -53,8 +53,8 @@ let update_camera delta (player, env_items, camera, mode) =
           in
           Vector2.(
             create
-              (shift_cam x (Float.of_int width))
-              (shift_cam y (Float.of_int height)))
+              (shift_cam x (Float.of_int window_width))
+              (shift_cam y (Float.of_int window_height)))
         in
         let offset = Vector2.add half_screen shift in
         (offset, player.position, mode)
