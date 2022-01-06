@@ -12,5 +12,5 @@ type graphics_data_t = {
 }
 
 val draw_all : graphics_data_t -> state_t -> state_t * graphics_data_t
-val load_graphics : state_t -> state_t * graphics_data_t
+val load_graphics : Raylib.Camera2D.t -> Raylib.Camera2D.t * graphics_data_t
 

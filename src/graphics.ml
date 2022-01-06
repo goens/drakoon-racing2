@@ -21,14 +21,14 @@ type graphics_data_t = {
  korando : korando_textures_t
 }
 
-let load_graphics state =
+let load_graphics camera =
  let open Raylib in
  let regular = load_texture "resources/korando.png" in
  let smoke = load_texture "resources/korando_smoke.png" in
  let fire = load_texture "resources/korando_fire.png" in
  let explosion = load_texture "resources/korando_explosion.png" in
  let korando = {regular;smoke;fire;explosion} in
- state,{korando}
+ camera,{korando}
 
 let draw_all textures (player, env_items, camera, mode) =
   let camera_description = Camera.camera_description in

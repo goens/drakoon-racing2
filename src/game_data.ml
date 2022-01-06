@@ -26,7 +26,7 @@ let width = 800
 
 let height = 450
 
-let player_max_speed = 350.
+let player_max_speed = 300.
 let player_max_reverse_speed = 150.
 let player_max_damage = 3
 let player_rotation_speed = 1.0

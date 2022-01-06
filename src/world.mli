@@ -1,3 +1,3 @@
 open Game_data
 
-val setup : Unit.t -> state_t
+val init : Raylib.Camera2D.t * Graphics.graphics_data_t -> state_t * Graphics.graphics_data_t

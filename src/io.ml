@@ -1,3 +1,8 @@
+type input_t = {
+vector : Raylib.Vector2.t;
+restart : bool;
+}
+
 let read_input () =
  let open Raylib in
  let x_val =
@@ -12,4 +17,6 @@ let read_input () =
     | false, true -> 1.
     | _, _ -> 0.
  in
- Vector2.create x_val y_val
+ let vector = Vector2.create x_val y_val in
+ let restart = is_key_down Key.R in
+ {vector; restart}

@@ -1,9 +1,7 @@
 open Game_data
 
-let setup () =
+let init (camera, graphics) =
   let open Raylib in
-  set_config_flags [ ConfigFlags.Window_resizable ];
-  init_window width height "raylib [core] example - 2d camera";
   let player = { position = half_screen; orientation = Vector2.create 0. (-1.);
                  speed = 0.; damage = 0; invulnerability = 0. } in
   let env_items =
@@ -30,7 +28,4 @@ let setup () =
       };
     ]
   in
-
-  let camera = Camera2D.create half_screen player.position 0.0 1.0 in
-  set_target_fps game_target_fps;
-  (player, env_items, camera, Center)
+  ((player, env_items, camera, Center), graphics)
